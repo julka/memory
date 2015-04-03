@@ -1,0 +1,32 @@
+{
+  "name": "memory",
+  "version": "0.0.0",
+  "description": "a memory game",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/julka/memory.git"
+  },
+  "author": "Julka Grodel",
+  "bugs": {
+    "url": "https://github.com/julka/memory/issues"
+  },
+  "devDependencies": {
+    "gulp": "~3.8.11",
+    "bower": "~1.4.1",
+    "gulp-concat": "~2.5.2",
+    "gulp-uglify": "~1.1.0",
+    "gulp-sourcemaps": "~1.5.1",
+    "gulp-bower": "0.0.10",
+    "gulp-clean": "~0.3.1",
+    "gulp-jshint": "~1.10.0",
+    "jshint-stylish": "~1.0.1"
+  },
+  "dependencies": {
+    "forever": "~0.14.1",
+    "express": "~4.12.3"
+  }
+}
