@@ -1,5 +1,9 @@
 <div ng-controller="gameGridCtrl">
-    <h2 ng-show="gameWon">You Won!</h2>
+    <h2 ng-show="gameWon">You Won in just {{tries}}!</h2>
+    <h2 ng-hide="gameWon">You've made {{tries}} tries!
+      <span ng-show="tries < bestGame">Can you beat your best score of {{bestGame}}?</span>
+    </h2>
+
     <div ng-repeat="a in rowCount track by $index">
       <div class="row">
         <div ng-repeat="a in columnCount track by $index">

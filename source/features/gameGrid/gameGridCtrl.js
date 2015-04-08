@@ -1,22 +1,23 @@
-memoryApp.controller('gameGridCtrl', function ($scope, configService, gameService) {
+memoryApp.controller('gameGridCtrl', function ($scope, configService, gameService, $timeout) {
   var defaultIconClass = 'text-primary';
   var matchIconClass = 'text-success';
   var mismatchIconClass = 'text-danger';
   var waitTimeForFlipBack = 2000;
   $scope.widthCount = 6;
   $scope.iconClass = defaultIconClass;
+  $scope.bestGame = 0;
 
   $scope.newGame = function() {
 //    console.log("new game");
     $scope.gameWon = false;
+    $scope.tries = 0;
     $scope.cardsShown = [];
     $scope.cardsCleared = [];
     $scope.cards = gameService.setBoard($scope.widthCount, 4);
     $scope.cardCount = $scope.cards.length;
     $scope.rowCount = new Array(Math.ceil($scope.cardCount / $scope.widthCount));
-//    $scope.$apply();
-//    console.log($scope.cards);
-  }();
+  };
+  $scope.newGame();
 
   $scope.columnCount = new Array($scope.widthCount);
 
@@ -37,15 +38,16 @@ memoryApp.controller('gameGridCtrl', function ($scope, configService, gameServic
     }
 
     if ($scope.cardsShown.length === 2) {
+      $scope.tries++;
       var cardIcon1 = $scope.cards[$scope.cardsShown[0]];
       var cardIcon2 = $scope.cards[$scope.cardsShown[1]];
 
       if (cardIcon1 === cardIcon2) {
         $scope.iconClass = matchIconClass;
-        setTimeout(matchedCardsFlipped, waitTimeForFlipBack);
+        $timeout(matchedCardsFlipped, waitTimeForFlipBack);
       } else {
         $scope.iconClass = mismatchIconClass;
-        setTimeout(mismatchedCardsFlipped, waitTimeForFlipBack);
+        $timeout(mismatchedCardsFlipped, waitTimeForFlipBack);
       }
     }
   };
@@ -56,16 +58,17 @@ memoryApp.controller('gameGridCtrl', function ($scope, configService, gameServic
     $scope.iconClass = defaultIconClass;
     if ($scope.cards.length === $scope.cardsCleared.length) {
       console.log("you won!");
+      if($scope.tries < $scope.bestGame || $scope.bestGame === 0) {
+        $scope.bestGame = $scope.tries;
+      }
       $scope.gameWon = true;
-      setTimeout($scope.newGame, waitTimeForFlipBack);
+      $timeout($scope.newGame, waitTimeForFlipBack);
     }
-    $scope.$apply();
   };
 
   var mismatchedCardsFlipped = function() {
     $scope.cardsShown = [];
     $scope.iconClass = defaultIconClass;
-    $scope.$apply();
   };
 
 
