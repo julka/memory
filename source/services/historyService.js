@@ -1,0 +1,3 @@
+memoryApp.service('historyService', function(){
+
+});

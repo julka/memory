@@ -1,0 +1,28 @@
+<div ng-controller="gameGridCtrl">
+    <h2 ng-show="gameWon">You Won!</h2>
+    <div ng-repeat="a in rowCount track by $index">
+      <div class="row">
+        <div ng-repeat="a in columnCount track by $index">
+          <div
+            ng-switch="cardState(calculateIndex($parent.$index, $index))"
+            ng-click="flipCard(calculateIndex($parent.$index, $index))">
+            <div class="col-md-2" ng-switch-when="show">
+              <h1>
+                <i class="fa fa-{{cards[calculateIndex($parent.$parent.$index, $index)]}} {{iconClass}}"></i>
+              </h1>
+            </div>
+            <div class="col-md-2" ng-switch-when="clear">
+              <h1>
+                <i class="fa fa-close"></i>
+              </h1>
+            </div>
+            <div class="col-md-2" ng-switch-default>
+              <h1>
+                <i class="fa fa-square"></i>
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
